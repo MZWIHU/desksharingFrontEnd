@@ -1,6 +1,6 @@
-import {Component, EventEmitter, inject} from '@angular/core';
+import {Component, EventEmitter, inject, OnInit} from '@angular/core';
 import {NgbActiveModal, NgbDate, NgbInputDatepicker} from "@ng-bootstrap/ng-bootstrap";
-import {FormsModule} from "@angular/forms";
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {ReservationService} from "../service/reservation-service.service";
 
 @Component({
@@ -8,19 +8,26 @@ import {ReservationService} from "../service/reservation-service.service";
   standalone: true,
   imports: [
     NgbInputDatepicker,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   templateUrl: './popup.component.html',
   styleUrl: './popup.component.css'
 })
 export class PopupComponent {
+  activeModal = inject(NgbActiveModal);
 
   constructor(private reservationService: ReservationService) {
   }
-  activeModal = inject(NgbActiveModal);
-  date: any;
 
+  nameInputForm = new FormGroup({
+    name: new FormControl<string>('', [
+      Validators.required
+    ])
+  })
   makeReservation() {
-    this.reservationService.makeReservation()
+    console.log(!this.nameInputForm.valid)
+    console.log(this.nameInputForm.get('name').value)
+    //this.reservationService.makeReservation()
   }
 }
