@@ -1,0 +1,24 @@
+.dateInput {
+  display: block;
+}
+
+.heading {
+  display: block;
+  text-align: center;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.exit {
+  margin-top: 5px;
+  margin-right: 5px;
+  text-align: right;
+}
+
+.reserve {
+margin-top: 15px;
+  margin-bottom: 15px;
+}
+.inputDate {
+
+}
