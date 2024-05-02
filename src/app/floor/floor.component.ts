@@ -1,11 +1,10 @@
 import {AfterViewInit, Component, ElementRef, inject, Input, TemplateRef, ViewChild} from '@angular/core';
 import {CommonModule} from "@angular/common";
-import {Reservation} from "../domain/Reservation";
-import {User} from "../domain/User";
-import {Desk} from "../domain/Desk";
-import {NgbAlert, NgbInputDatepicker, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {PopupComponent} from "../popup/popup.component";
 import {ReservationService} from "../service/reservation-service.service";
+import {Response} from "../domain/Response";
+import {MatFormField} from "@angular/material/form-field";
+import {MatDialog} from "@angular/material/dialog";
 
 
 @Component({
@@ -13,8 +12,7 @@ import {ReservationService} from "../service/reservation-service.service";
   standalone: true,
   imports: [
     CommonModule,
-    NgbInputDatepicker,
-    NgbAlert
+    MatFormField,
   ],
   templateUrl: './floor.component.html',
   styleUrl: './floor.component.css'
@@ -22,13 +20,14 @@ import {ReservationService} from "../service/reservation-service.service";
 
 
 export class FloorComponent implements AfterViewInit {
-  constructor(private modalService: NgbModal,
-              private reservationService: ReservationService
-  ) {
-  }
 
-  open() {
-    this.modalService.open(PopupComponent, {animation: false, size: "lg"});
+  resp: Response | undefined;
+
+
+  constructor(
+              private reservationService: ReservationService,
+              public dialog: MatDialog
+  ) {
   }
 
   @ViewChild('svgObject') svgObject: ElementRef;
@@ -46,23 +45,24 @@ export class FloorComponent implements AfterViewInit {
     });
   }
 
-  onDeskClick(target: any) {
+  openDialog(): void {
+    const dialogRef = this.dialog.open(PopupComponent, {});
+  }
 
+  onDeskClick(target: any) {
 
     if (target.id != null && target.id != "") {
       console.log('Desk clicked:', target.id);
       this.reservationService.target = target;
       let response = this.reservationService.getReservation()
       response.subscribe(response => {
-          let keys = Object.keys(response);
-
-          let values = keys.map(k => response[k]);
-          console.log("VALUE: " + values[0]);
-          console.log(response)
-          if (values[0] == "notReserved") {
-            this.open();
+        this.resp = {
+          value: response.value
+        }
+          if(this.resp.value == "notReserved") {
+            this.openDialog()
           } else {
-            console.log("reserved")
+            console.log("Reserved")
           }
         }
       )

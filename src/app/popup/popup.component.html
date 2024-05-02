@@ -1,11 +1,16 @@
 <div class="exit">
-  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+ <!-- <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
 </div>
 <div class="heading">
   <h4>Enter the date you want to reserve a table for:</h4>
-  <form [formGroup]="nameInputForm">
-    <input id="name" name="name" type="text" [formControl]="nameInputForm.controls.name">
-    <button type="submit" [disabled]="!nameInputForm.valid" (click)="makeReservation()">reserve</button>
+  <form [formGroup]="dateInputForm" (ngSubmit)="onSubmit()">
+    <input id="date" name="date" type="date" formControlName="date">
+    <button type="submit" [disabled]="!dateInputForm.valid">reserve</button>
   </form>
+  -->
 </div>
+
+<mat-dialog-content>
+  <h1>Hallo</h1>
+</mat-dialog-content>
 

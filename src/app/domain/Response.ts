@@ -1,3 +1,3 @@
-export class Response {
+export interface Response {
   value: string
 }

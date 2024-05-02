@@ -17,15 +17,13 @@ export class ReservationService {
 
   }
 
-  getReservation(): Observable<Object> {
-
-    let resp: any;
+  getReservation(): Observable<Response> {
     const headers: HttpHeaders = new HttpHeaders();
     headers.set("Content-Type", "application/json");
     headers.set("Accept", "application/json");
 
 
-    return this.http.get('http://localhost:8090/reservation?deskID=' + this.target.id, {headers})
+    return this.http.get<Response>('http://localhost:8090/reservation?deskID=' + this.target.id, {headers})
   }
 
   makeReservation(): String {
