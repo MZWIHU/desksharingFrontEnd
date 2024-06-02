@@ -2,12 +2,13 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import {FloorComponent} from "./floor/floor.component";
 import {LandingpageComponent} from "./landingpage/landingpage.component";
-import {KeycloakAngularModule, KeycloakAuthGuard} from "keycloak-angular";
+import {ReservationOverviewComponent} from "./reservation-overview/reservation-overview.component";
 
 
 export const routes: Routes = [
-  { path: 'floor', component: FloorComponent },
+  { path: 'floor/:id', component: FloorComponent },
   { path: '', component: LandingpageComponent},
+  {path: 'overview', component: ReservationOverviewComponent}
 
 ];
 

@@ -4,7 +4,6 @@ import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import {environment} from "../enviroment/enviroment";
 import {AppComponent} from "./app.component";
-import {NgxImageZoomModule} from "ngx-image-zoom";
 
 export function initializeKeycloak(keycloak: KeycloakService) {
   return () => keycloak.init({
@@ -24,7 +23,6 @@ export function initializeKeycloak(keycloak: KeycloakService) {
   imports: [
     BrowserModule,
     KeycloakAngularModule,
-    NgxImageZoomModule
   ],
   providers: [
     {

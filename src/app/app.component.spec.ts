@@ -17,7 +17,7 @@ describe('AppComponent', () => {
   it(`should have the 'desksharingFrontEnd' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.user).toEqual('desksharingFrontEnd');
+    expect(app.title).toEqual('desksharingFrontEnd');
   });
 
   it('should render title', () => {

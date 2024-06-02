@@ -1,3 +1,16 @@
-<div class="header">
-  <h1 class="headline">DESKSHARING</h1>
-</div>
+<mat-toolbar class="navbar">
+  <mat-toolbar-row>
+    <span class="heading" routerLink="">DESKSHARING</span>
+    <span class="example-spacer"></span>
+    @if (loggedIn) {
+      <button matRipple class="btn">
+        LOGOUT
+      </button>
+    } @else {
+      <button matRipple class="btn">
+        LOGIN
+      </button>
+    }
+
+  </mat-toolbar-row>
+</mat-toolbar>

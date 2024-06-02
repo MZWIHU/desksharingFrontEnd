@@ -1,0 +1,16 @@
+.outer {
+  text-align: center;
+  color: black;
+}
+.dialog {
+  color: black;
+}
+
+.sub {
+  margin: 10px;
+}
+
+.demo-inline-calendar-card {
+  width: 300px;
+  margin: auto;
+}

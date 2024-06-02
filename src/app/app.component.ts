@@ -1,7 +1,8 @@
-import {Component, NgModule, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {RouterLink, RouterOutlet} from '@angular/router';
 import {DesksharingHeaderComponent} from "./desksharingHeader/desksharingHeader.component";
 import {HttpClientModule} from "@angular/common/http";
+import {MatDivider} from "@angular/material/divider";
 
 @Component({
   selector: 'app-root',
@@ -9,12 +10,12 @@ import {HttpClientModule} from "@angular/common/http";
   imports: [RouterOutlet,
     DesksharingHeaderComponent,
     RouterLink,
-    HttpClientModule],
+    HttpClientModule, MatDivider],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 
 })
 export class AppComponent{
-
+ title = "desksharingFrontEnd";
 }
 
