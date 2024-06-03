@@ -39,13 +39,13 @@ export class ReservationOverviewComponent {
   }
 }
 
-export interface PeriodicElement {
+export interface Data {
   desk: string;
   position: number;
   date: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
+const ELEMENT_DATA: Data[] = [
   {position: 1, desk: '1.OG Desk1', date: "10-10-2024"},
   {position: 2, desk: '3.OG Desk20', date: "10-10-2024" },
   {position: 3, desk: '3.OG Desk20', date: "10-10-2024"},
