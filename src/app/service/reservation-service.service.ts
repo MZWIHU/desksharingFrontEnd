@@ -23,7 +23,8 @@ export class ReservationService {
     headers.set("Accept", "application/json");
 
 
-    return this.http.get<Response>('http://localhost:8090/reservation?deskID=' + this.target.id, {headers})
+    return this.http.get<Response>('https://desksharing.onrender.com/reservation?deskID=' + this.target.id, {headers})
+    //return this.http.get<Response>('http://localhost:8090/reservation?deskID=' + this.target.id, {headers})
   }
 
   makeReservation(): String {
@@ -36,7 +37,8 @@ export class ReservationService {
       new User("zwm", "zwm@wuestenrot.at", "Martin", "Zwicklhuber")
       , new Desk(this.target.id));
 
-    this.http.post("http://localhost:8090/reservation", request, {headers}).subscribe(
+    this.http.post("https://desksharing.onrender.com/reservation", request, {headers}).subscribe(
+    //this.http.post("http://localhost:8090/reservation", request, {headers}).subscribe(
       response => {
         console.log(response)
       }

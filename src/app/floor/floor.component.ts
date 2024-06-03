@@ -1,9 +1,7 @@
 import {
-  AfterViewChecked,
   AfterViewInit,
   Component,
   ElementRef,
-  HostListener,
   NgZone,
   OnInit,
   ViewChild
@@ -18,6 +16,7 @@ import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 import {MatToolbarRow} from "@angular/material/toolbar";
 import {MatButton} from "@angular/material/button";
 import {switchMap} from "rxjs";
+import {Response} from "../domain/Response";
 
 
 @Component({
@@ -39,6 +38,8 @@ export class FloorComponent implements OnInit, AfterViewInit {
 
   path = "";
   safePath: SafeResourceUrl = "";
+  resp: Response;
+
 
   constructor(
     private reservationService: ReservationService,
@@ -113,23 +114,23 @@ onDeskClick(target: any)
   if (target.id != null && target.id != "") {
     console.log('Desk clicked:', target.id);
     this.reservationService.target = target;
-    /*
     let response = this.reservationService.getReservation()
     response.subscribe(response => {
       this.resp = {
         value: response.value
       }
         if(this.resp.value == "notReserved") {
-          this.openDialog()
+          console.log("not Reserved")
+          this.zone.run(() => {
+            this.openDialog();
+          })
         } else {
           console.log("Reserved")
         }
 
       }
-    ) */
-    this.zone.run(() => {
-      this.openDialog();
-    })
+    )
+
   }
 }
 }

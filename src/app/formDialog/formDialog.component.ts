@@ -58,7 +58,7 @@ export class FormDialogComponent implements OnInit {
   makeReservation() {
     console.log(!this.dateInputForm.valid)
     console.log(this.dateInputForm.get('date').value.toLocaleDateString())
-    //this.reservationService.makeReservation()
+    this.reservationService.makeReservation()
   }
 
   updateFormDate(value: any) {
