@@ -1,7 +1,9 @@
 export class Desk {
-  public deskID;
+  public deskID : number;
+  public floor: number;
 
-  constructor(deskID: string) {
+  constructor(deskID: number, floor: number) {
     this.deskID = deskID;
+    this.floor = floor;
   }
 }

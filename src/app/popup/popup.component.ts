@@ -1,6 +1,5 @@
-import {AfterViewInit, Component, inject, OnInit} from '@angular/core';
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {ReservationService} from "../service/reservation-service.service";
+import {Component, OnInit} from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatFormField} from "@angular/material/form-field";
 import {MatDialogActions, MatDialogClose, MatDialogContent} from "@angular/material/dialog";
 

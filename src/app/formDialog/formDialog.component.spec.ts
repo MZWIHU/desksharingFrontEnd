@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { FormDialogComponent } from './formDialog.component';
+import {FormDialogComponent} from './formDialog.component';
 
 describe('PopupComponent', () => {
   let component: FormDialogComponent;

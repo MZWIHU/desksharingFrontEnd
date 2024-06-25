@@ -1,18 +1,18 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {DesksharingHeaderComponent} from './desksharingHeader.component';
+import {EditDialogComponent} from './edit-dialog.component';
 
-describe('HeaderComponent', () => {
-  let component: DesksharingHeaderComponent;
-  let fixture: ComponentFixture<DesksharingHeaderComponent>;
+describe('EditDialogComponent', () => {
+  let component: EditDialogComponent;
+  let fixture: ComponentFixture<EditDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DesksharingHeaderComponent]
+      imports: [EditDialogComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DesksharingHeaderComponent);
+    fixture = TestBed.createComponent(EditDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,7 +1,7 @@
 // app.module.ts
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER } from '@angular/core';
-import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
+import {BrowserModule} from '@angular/platform-browser';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
+import {KeycloakAngularModule, KeycloakService} from 'keycloak-angular';
 import {environment} from "../enviroment/enviroment";
 import {AppComponent} from "./app.component";
 

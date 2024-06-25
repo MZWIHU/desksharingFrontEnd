@@ -1,14 +1,23 @@
-import { Component } from '@angular/core';
+import {Component, DestroyRef, inject, OnInit} from '@angular/core';
 import {
   MatCell,
   MatCellDef,
   MatColumnDef,
   MatHeaderCell,
-  MatHeaderCellDef, MatHeaderRow,
-  MatHeaderRowDef, MatRow, MatRowDef, MatTable
+  MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
+  MatRowDef,
+  MatTable
 } from "@angular/material/table";
 import {MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
+import {ReservationService} from "../service/reservation-service.service";
+import {Reservation} from "../domain/Reservation";
+import {MatDialog} from "@angular/material/dialog";
+import {EditDialogComponent} from "../edit-dialog/edit-dialog.component";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-reservation-overview',
@@ -30,26 +39,43 @@ import {MatIcon} from "@angular/material/icon";
   templateUrl: './reservation-overview.component.html',
   styleUrl: './reservation-overview.component.css'
 })
-export class ReservationOverviewComponent {
-  displayedColumns: string[] = ['position', 'desk', 'date', `action`];
-  dataSource = ELEMENT_DATA;
+export class ReservationOverviewComponent implements OnInit {
+
+  destroyRef: DestroyRef = inject(DestroyRef)
+  reservationService: ReservationService = inject(ReservationService);
+  displayedColumns: string[] = ['desk', 'floor', 'date', 'action'];
+  dialog: MatDialog = inject(MatDialog)
+  dataSource: Reservation[];
+
+  ngOnInit() {
+
+    this.getData();
+    this.dialog.afterAllClosed.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(_ => {
+      this.getData()
+    })
+  }
+
+  getData() {
+    this.reservationService.getReservationByUserMail("zwm@wuestenrot.at").pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(
+        response => {
+          this.dataSource = response;
+          console.log(response)
+        })
+  }
 
   delete(position) {
     console.log(position)
   }
+
+  editEntry(reservation: Reservation) {
+    console.log(reservation)
+    this.openDialog(reservation)
+  }
+
+  openDialog(reservation: Reservation): void {
+    const dialogRef = this.dialog.open(EditDialogComponent, {
+      data: reservation
+    });
+  }
 }
-
-export interface Data {
-  desk: string;
-  position: number;
-  date: string;
-}
-
-const ELEMENT_DATA: Data[] = [
-  {position: 1, desk: '1.OG Desk1', date: "10-10-2024"},
-  {position: 2, desk: '3.OG Desk20', date: "10-10-2024" },
-  {position: 3, desk: '3.OG Desk20', date: "10-10-2024"},
-  {position: 4, desk: '2.OG Desk2', date: "10-10-2024" },
-  {position: 5, desk: '2.OG Desk2', date: "10-10-2024"}
-];
-

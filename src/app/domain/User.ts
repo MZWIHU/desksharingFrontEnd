@@ -1,5 +1,4 @@
 export class User {
-  public userID;
 
   public mail;
 
@@ -7,8 +6,7 @@ export class User {
 
   public surname;
 
-  constructor(userID: string, mail : string, name: string, surname: string) {
-    this.userID = userID;
+  constructor(mail : string, name: string, surname: string) {
     this.mail = mail;
     this.name = name;
     this.surname = surname;

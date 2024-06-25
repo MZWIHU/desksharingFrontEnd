@@ -1,17 +1,19 @@
-import { User } from './User';
+import {User} from './User';
 import {Desk} from "./Desk";
+
 export class Reservation {
-  constructor(fromTime: string, toTime: string, user : User, desk: Desk) {
-    this.fromTime = fromTime;
-    this.toTime = toTime;
+  constructor(date: string, user : User, desk: Desk) {
+    this.date = date;
     this.user = user;
     this.desk = desk;
   }
 
 
-  public fromTime;
+  public _id: any;
 
-  public toTime;
+  public mongoID: string;
+
+  public date: string;
 
   public user : User;
 

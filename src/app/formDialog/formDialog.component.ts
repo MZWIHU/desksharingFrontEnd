@@ -1,13 +1,22 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, inject} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {ReservationService} from "../service/reservation-service.service";
 import {MatButton} from "@angular/material/button";
-import {MatDialogActions, MatDialogContent, MatDialogRef, MatDialogTitle} from "@angular/material/dialog";
+import {
+  MAT_DIALOG_DATA,
+  MatDialogActions,
+  MatDialogContent,
+  MatDialogRef,
+  MatDialogTitle
+} from "@angular/material/dialog";
 import {MatFormField} from "@angular/material/form-field";
 import {MatCard} from "@angular/material/card";
 import {MatCalendar, MatDatepickerInput} from "@angular/material/datepicker";
 import {provideNativeDateAdapter} from "@angular/material/core";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {MatTab, MatTabGroup} from "@angular/material/tabs";
+import {Reservation} from "../domain/Reservation";
+import {DialogData} from "../domain/DialogData";
 
 @Component({
   selector: 'app-popup',
@@ -22,21 +31,34 @@ import {MatSnackBar} from "@angular/material/snack-bar";
     MatDialogActions,
     MatCard,
     MatCalendar,
-    MatDatepickerInput
+    MatDatepickerInput,
+    MatTabGroup,
+    MatTab
   ],
   providers: [provideNativeDateAdapter()],
   styleUrl: './formDialog.component.css'
 })
 export class FormDialogComponent implements OnInit {
 
-  constructor(private reservationService: ReservationService,
-              public dialogRef: MatDialogRef<FormDialogComponent>,
-              private snackBar: MatSnackBar) {
-    console.log("CONSTRUCTOR")
-  }
+  private reservationService: ReservationService = inject(ReservationService);
+
+  private dialogRef: MatDialogRef<FormDialogComponent> = inject(MatDialogRef<FormDialogComponent>);
+
+  private snackBar: MatSnackBar = inject(MatSnackBar);
+
+  private pass: DialogData = inject(MAT_DIALOG_DATA)
+
+  public disabled: Date[] = []
 
   ngOnInit(): void {
-    console.log("INIT")
+  //  console.log("INIT")
+    console.log(this.pass.reservations)
+
+    for (var reservation of this.pass.reservations) {
+      this.disabled.push(new Date(reservation.date));
+    }
+
+    console.log(this.disabled)
   }
 
   dateInputForm = new FormGroup({
@@ -48,17 +70,18 @@ export class FormDialogComponent implements OnInit {
 
 
   onSubmit() {
-    console.log("submit")
-    this.makeReservation();
+    //   console.log("submit")
+    console.log(this.dateInputForm.controls.date.value + "AT SUBMIT")
+    this.makeReservation(this.dateInputForm.controls.date.value, +this.pass.floor, this.pass.deskID);
     this.dialogRef.close();
 
   }
 
 
-  makeReservation() {
-    console.log(!this.dateInputForm.valid)
-    console.log(this.dateInputForm.get('date').value.toLocaleDateString())
-    this.reservationService.makeReservation()
+  makeReservation(date: Date, floor: number, deskID: number) {
+    //console.log(!this.dateInputForm.valid)
+    //console.log(this.dateInputForm.get('fromDate').value.toLocaleDateString())
+    this.reservationService.makeReservation(date, floor, deskID)
   }
 
   updateFormDate(value: any) {
@@ -75,4 +98,10 @@ export class FormDialogComponent implements OnInit {
     });
   }
 
+  disabledDates = (d: Date): boolean => {
+    //d.setTime(new Date().getTime())
+    const time = d.getDate();
+    console.log(!this.disabled.find(x => x.getDate() == time));
+    return !this.disabled.find(x => x.getDate() == time);
+  }
 }
