@@ -29,15 +29,14 @@ export class ReservationService {
     return this.http.get<Reservation[]>('http://localhost:8090/deskReservations?deskID=' + targetID + "&floor=" + floor, {headers})
   }
 
-  makeReservation(date: Date,  floor: number, deskID: number): String {
+  makeReservation(date: Date,  floor: number, deskID: number) {
     const headers: HttpHeaders = new HttpHeaders();
     headers.set("Content-Type", "application/json");
     headers.set("Accept", "application/json");
-    date.setHours(2);
+    date.setHours(3);
     date.setMinutes(1)
     date.setSeconds(0)
 
-    //console.log(toTime.toISOString())
     let request = new Reservation(date.toUTCString(),
       new User("zwm@wuestenrot.at", "Martin", "Zwicklhuber")
       , new Desk(deskID, floor));
@@ -48,12 +47,9 @@ export class ReservationService {
         //console.log(response)
       }
     )
-
-    return null;
   }
 
   getReservationByUserMail(userMail: string): Observable<Reservation[]> {
-    let reservations: Reservation[];
     const headers: HttpHeaders = new HttpHeaders();
     headers.set("Content-Type", "application/json");
     headers.set("Accept", "application/json");
@@ -64,7 +60,6 @@ export class ReservationService {
   }
 
   updateReservation(reservation: Reservation){
-    //console.log()
     const headers: HttpHeaders = new HttpHeaders();
     headers.set("Content-Type", "application/json");
     headers.set("Accept", "application/json");
@@ -85,5 +80,4 @@ export class ReservationService {
     //this.http.post("https://desksharing.onrender.com/reservation", request, {headers}).subscribe(
     return this.http.get<Reservation[]>("http://localhost:8090/reservations-by-floor?floor=" + floor, {headers})
   }
-
 }

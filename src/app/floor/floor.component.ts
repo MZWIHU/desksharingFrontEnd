@@ -41,7 +41,6 @@ export class FloorComponent implements AfterViewInit {
 
   path = "";
   safePath: SafeResourceUrl = "";
-  numberOfDesks: number = 39;
   floor: string;
   displayedColumns: string[] = ['desk', 'date', 'user'];
   reservations: Reservation[] = [];
@@ -60,10 +59,6 @@ export class FloorComponent implements AfterViewInit {
   constructor() {
     this.getCurrentFloor()
     this.changeFloor(false);
-
-    for (let i = 1; i <= this.numberOfDesks; i++) {
-      this.reservations.push(new Reservation("", new User("", "", ""), new Desk(i, +this.floor)));
-    }
     this.getReservationsByFloor(+this.floor)
     console.log(this.reservations)
   }
@@ -97,6 +92,7 @@ export class FloorComponent implements AfterViewInit {
     });
   }
 
+  //opens the dialog and passes the necessary data to it
   openDialog(deskID: number, reservations: Reservation[]): void {
     this.zone.run(_ => {
       const dialogRef = this.dialog.open(FormDialogComponent, {
@@ -109,6 +105,7 @@ export class FloorComponent implements AfterViewInit {
     })
   }
 
+  //gets the floor currently on from the url path
   getCurrentFloor() {
     this.route.paramMap.pipe(
       switchMap((params: ParamMap) =>
@@ -119,6 +116,7 @@ export class FloorComponent implements AfterViewInit {
     })
   }
 
+  //used to change the svg, reload variable used to prevent infinite loop
   changeFloor(reload: boolean) {
     this.safePath = this.getPath();
     console.log(this.safePath);
@@ -141,23 +139,16 @@ export class FloorComponent implements AfterViewInit {
     }
   }
 
+  //gets reservation of the floor the view is on
   getReservationsByFloor(floor: number) {
-    let dbReservations: Reservation[] = [];
-
     this.reservationService.getReservationsByFloor(floor).pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(response => {
-        dbReservations = response;
-
-        for (let reservation of dbReservations) {
-          this.reservations[reservation.desk.deskID - 1] = reservation;
-          console.log(this.reservations[reservation.desk.deskID])
-        }
-        console.log(this.reservations)
-        this.dataSource = new MatTableDataSource(this.reservations);
+        this.dataSource = new MatTableDataSource(response);
         this.dataSource.paginator = this.paginator;
       });
   }
 
+  //function for filtering in the table
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();

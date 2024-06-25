@@ -1,3 +1,6 @@
+/*
+class that represents an user
+ */
 export class User {
 
   public mail;

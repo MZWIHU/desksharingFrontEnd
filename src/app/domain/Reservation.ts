@@ -1,6 +1,9 @@
 import {User} from './User';
 import {Desk} from "./Desk";
 
+/*
+class representing a reservation
+ */
 export class Reservation {
   constructor(date: string, user : User, desk: Desk) {
     this.date = date;

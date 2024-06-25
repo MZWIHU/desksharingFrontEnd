@@ -51,10 +51,10 @@ export class FormDialogComponent implements OnInit {
   public disabled: Date[] = []
 
   ngOnInit(): void {
-  //  console.log("INIT")
-    console.log(this.pass.reservations)
+    //  console.log("INIT")
+    //console.log(this.pass.reservations)
 
-    for (var reservation of this.pass.reservations) {
+    for (let reservation of this.pass.reservations) {
       this.disabled.push(new Date(reservation.date));
     }
 
@@ -66,7 +66,6 @@ export class FormDialogComponent implements OnInit {
       Validators.required
     ])
   })
-
 
 
   onSubmit() {
@@ -98,6 +97,7 @@ export class FormDialogComponent implements OnInit {
     });
   }
 
+  //function to disable dates that are already reserved
   disabledDates = (d: Date): boolean => {
     //d.setTime(new Date().getTime())
     const time = d.getDate();

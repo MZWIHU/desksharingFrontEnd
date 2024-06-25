@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, Inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {MatButton} from "@angular/material/button";
 import {MatCalendar, MatDatepickerModule} from "@angular/material/datepicker";
 import {MatCard} from "@angular/material/card";
@@ -8,7 +8,6 @@ import {provideNativeDateAdapter} from "@angular/material/core";
 import {MatInputModule} from "@angular/material/input";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
 import {ReservationService} from "../service/reservation-service.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
 import {Reservation} from "../domain/Reservation";
 
 @Component({
@@ -38,15 +37,11 @@ export class EditDialogComponent implements OnInit {
 
   private toUpdate: Reservation;
 
-  selectedIndex = 0
-
   constructor(private reservationService: ReservationService) {
     this.toUpdate = this.pass;
   }
 
   ngOnInit(): void {
-    console.log("INIT")
-    console.log(this.pass)
     this.toUpdate = this.pass;
   }
 
@@ -58,8 +53,6 @@ export class EditDialogComponent implements OnInit {
 
 
   onSubmit() {
-    console.log(this.dateUpdateForm.controls.date.value)
-    console.log(this.toUpdate)
     //this.toUpdate.fromTime = this.dateUpdateForm.controls.fromDate.value;
     this.updateReservation();
     this.dialogRef.close();
@@ -68,15 +61,14 @@ export class EditDialogComponent implements OnInit {
 
 
   updateReservation() {
-    //console.log(!this.dateInputForm.valid)
-    //  console.log(this.dateInputForm.get('fromDate').value.toLocaleDateString())
-    //console.log(this.toUpdate.fromTime)
     this.reservationService.updateReservation(this.toUpdate);
   }
 
+  //updates form if the user changes the input
   updateFormDate(value: any) {
     this.dateUpdateForm.get('date').setValue(value);
-    this.dateUpdateForm.controls.date.value.setHours(2)
+    this.dateUpdateForm.controls.date.value.setHours(3)
+    this.dateUpdateForm.controls.date.value.setMinutes(1  )
     this.toUpdate.date = this.dateUpdateForm.get('date').value.toUTCString();
   }
 
