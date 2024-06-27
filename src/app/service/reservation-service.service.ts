@@ -26,7 +26,8 @@ export class ReservationService {
 
 
     //return this.http.get<Response>('https://desksharing.onrender.com/reservation?deskID=' + this.target.id, {headers})
-    return this.http.get<Reservation[]>('http://localhost:8090/deskReservations?deskID=' + targetID + "&floor=" + floor, {headers})
+    //return this.http.get<Reservation[]>('http://localhost:8090/deskReservations?deskID=' + targetID + "&floor=" + floor, {headers})
+    return this.http.get<Reservation[]>('https://desksharing.onrender.com/deskReservations?deskID=' + targetID + "&floor=" + floor, {headers})
   }
 
   makeReservation(date: Date,  floor: number, deskID: number) {
@@ -41,8 +42,8 @@ export class ReservationService {
       new User("zwm@wuestenrot.at", "Martin", "Zwicklhuber")
       , new Desk(deskID, floor));
 
-    //this.http.post("https://desksharing.onrender.com/reservation", request, {headers}).subscribe(
-      this.http.post("http://localhost:8090/reservation", request, {headers}).subscribe(
+    this.http.post("https://desksharing.onrender.com/reservation", request, {headers}).subscribe(
+      //this.http.post("http://localhost:8090/reservation", request, {headers}).subscribe(
       response => {
         //console.log(response)
       }
@@ -55,8 +56,9 @@ export class ReservationService {
     headers.set("Accept", "application/json");
 
 
-    //this.http.post("https://desksharing.onrender.com/reservation", request, {headers}).subscribe(
-    return this.http.get<Reservation[]>("http://localhost:8090/userReservations?userMail=" + userMail, {headers})
+    //this.http.post("https://desksharing.onrender.com/userReservations?userMail=", request, {headers}).subscribe(
+    //return this.http.get<Reservation[]>("http://localhost:8090/userReservations?userMail=" + userMail, {headers})
+    return this.http.get<Reservation[]>("https://desksharing.onrender.com/userReservations?userMail=" + userMail, {headers})
   }
 
   updateReservation(reservation: Reservation){
@@ -65,7 +67,8 @@ export class ReservationService {
     headers.set("Accept", "application/json");
 
     console.log("SEND")
-    this.http.put("http://localhost:8090/reservation", reservation, { headers }).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(
+   // this.http.put("http://localhost:8090/reservation", reservation, { headers }).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(
+    this.http.put("https://desksharing.onrender.com/reservation", reservation, { headers }).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(
       _ =>{}
     )
 
