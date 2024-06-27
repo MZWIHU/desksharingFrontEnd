@@ -81,7 +81,8 @@ export class ReservationService {
     headers.set("Accept", "application/json");
 
     //this.http.post("https://desksharing.onrender.com/reservation", request, {headers}).subscribe(
-    return this.http.get<Reservation[]>("http://localhost:8090/reservations-by-floor?floor=" + floor, {headers})
+    //return this.http.get<Reservation[]>("http://localhost:8090/reservations-by-floor?floor=" + floor, {headers})
+    return this.http.get<Reservation[]>("https://desksharing.onrender.com/reservations-by-floor?floor=" + floor, {headers})
   }
 
   deleteReservation(reservation: Reservation)  {
@@ -89,7 +90,8 @@ export class ReservationService {
     headers.set("Content-Type", "application/json");
     headers.set("Accept", "application/json");
 
-    return this.http.post("http://localhost:8090/deleteReservation", reservation, { headers })
+    //return this.http.post("http://localhost:8090/deleteReservation", reservation, { headers })
+    return this.http.post("https://desksharing.onrender.com/deleteReservation", reservation, { headers })
       .pipe(takeUntilDestroyed(this.destroyRef)).subscribe( _ =>{})
   }
 }
