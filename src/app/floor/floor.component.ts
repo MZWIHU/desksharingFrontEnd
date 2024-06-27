@@ -65,7 +65,6 @@ export class FloorComponent implements AfterViewInit {
   private sanitizer: DomSanitizer = inject(DomSanitizer);
   private destroyRef: DestroyRef = inject(DestroyRef)
   private zone: NgZone = inject(NgZone);
-  private http: HttpClient = inject(HttpClient);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -134,8 +133,6 @@ export class FloorComponent implements AfterViewInit {
   changeFloor() {
     this.safePath = this.getPath();
     console.log(this.safePath);
-
-
   }
 
   onDeskClick(target: any) {
@@ -161,11 +158,12 @@ export class FloorComponent implements AfterViewInit {
 
   //function for filtering in the table
   applyFilter(event: Event) {
+    /*if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }*/
+
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
   }
 }
