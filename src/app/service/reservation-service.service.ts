@@ -80,4 +80,13 @@ export class ReservationService {
     //this.http.post("https://desksharing.onrender.com/reservation", request, {headers}).subscribe(
     return this.http.get<Reservation[]>("http://localhost:8090/reservations-by-floor?floor=" + floor, {headers})
   }
+
+  deleteReservation(reservation: Reservation)  {
+    const headers: HttpHeaders = new HttpHeaders();
+    headers.set("Content-Type", "application/json");
+    headers.set("Accept", "application/json");
+
+    return this.http.post("http://localhost:8090/deleteReservation", reservation, { headers })
+      .pipe(takeUntilDestroyed(this.destroyRef)).subscribe( _ =>{})
+  }
 }

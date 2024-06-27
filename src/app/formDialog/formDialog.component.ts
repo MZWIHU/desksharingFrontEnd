@@ -73,7 +73,7 @@ export class FormDialogComponent implements OnInit {
     console.log(this.dateInputForm.controls.date.value + "AT SUBMIT")
     this.makeReservation(this.dateInputForm.controls.date.value, +this.pass.floor, this.pass.deskID);
     this.dialogRef.close();
-
+    window.location.reload()
   }
 
 

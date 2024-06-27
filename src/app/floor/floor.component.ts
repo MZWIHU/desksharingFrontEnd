@@ -1,4 +1,14 @@
-import {AfterViewInit, Component, DestroyRef, ElementRef, HostListener, inject, NgZone, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  DestroyRef,
+  ElementRef,
+  HostListener,
+  inject,
+  NgZone,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import {CommonModule} from "@angular/common";
 import {FormDialogComponent} from "../formDialog/formDialog.component";
 import {ReservationService} from "../service/reservation-service.service";
@@ -18,6 +28,8 @@ import {MatTableDataSource, MatTableModule
 import {MatInputModule} from "@angular/material/input";
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatSort, MatSortModule} from "@angular/material/sort";
+import {HttpClient} from "@angular/common/http";
+import {MapSVGComponent} from "../map-svg/map-svg.component";
 
 @Component({
   selector: 'app-floor',
@@ -31,7 +43,8 @@ import {MatSort, MatSortModule} from "@angular/material/sort";
     MatInputModule,
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MapSVGComponent
   ],
   templateUrl: './floor.component.html',
   styleUrl: './floor.component.css'
@@ -45,20 +58,22 @@ export class FloorComponent implements AfterViewInit {
   displayedColumns: string[] = ['desk', 'date', 'user'];
   reservations: Reservation[] = [];
   dataSource: MatTableDataSource<Reservation>;
+  svg: Object = "";
   private reservationService: ReservationService = inject(ReservationService);
   public dialog: MatDialog = inject(MatDialog);
   private route: ActivatedRoute = inject(ActivatedRoute);
   private sanitizer: DomSanitizer = inject(DomSanitizer);
   private destroyRef: DestroyRef = inject(DestroyRef)
-  private zone: NgZone = inject(NgZone)
+  private zone: NgZone = inject(NgZone);
+  private http: HttpClient = inject(HttpClient);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  @ViewChild('svgObject') svgObject: ElementRef;
+  //@ViewChild('svgObject') svgObject: ElementRef;
 
   constructor() {
     this.getCurrentFloor()
-    this.changeFloor(false);
+    this.changeFloor();
     this.getReservationsByFloor(+this.floor)
     console.log(this.reservations)
   }
@@ -67,19 +82,16 @@ export class FloorComponent implements AfterViewInit {
     return this.sanitizer.bypassSecurityTrustResourceUrl(this.path);
   }
 
-  @HostListener('click')
-  onFloorComponentClicked(event: MouseEvent) {
-    this.getClickedElement(event);
-  }
-
   private getClickedElement(event: MouseEvent) {
-    this.onDeskClick(event.target);
+    //this.onDeskClick(event.target);
     //Array.from(this.floor.children).find(el => el.contains(event.target))
     // )
+    //    console.log(event.target)
+    //return (Array.from(this.svgObject.children).find(el => el.contains(event.target)))
   }
 
   ngAfterViewInit(): void {
-
+/*
     this.svgObject.nativeElement.addEventListener('load', () => {
       const svgDoc = this.svgObject.nativeElement.contentDocument;
       const paths = svgDoc.querySelectorAll('path');
@@ -90,6 +102,8 @@ export class FloorComponent implements AfterViewInit {
         });
       });
     });
+
+ */
   }
 
   //opens the dialog and passes the necessary data to it
@@ -117,17 +131,14 @@ export class FloorComponent implements AfterViewInit {
   }
 
   //used to change the svg, reload variable used to prevent infinite loop
-  changeFloor(reload: boolean) {
+  changeFloor() {
     this.safePath = this.getPath();
     console.log(this.safePath);
-    if (reload) {
-      window.location.reload();
-    }
+
+
   }
 
   onDeskClick(target: any) {
-    let rect =
-      document.getElementById('all')
     // console.log(rect)
     if (target.id != null && target.id != "") {
       // console.log('Desk clicked:', target.id);
