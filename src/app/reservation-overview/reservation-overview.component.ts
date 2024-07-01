@@ -67,7 +67,7 @@ export class ReservationOverviewComponent implements OnInit {
 
   delete(reservation: Reservation) {
     console.log(reservation)
-   // this.reservationService.deleteReservation(reservation)
+    this.reservationService.deleteReservation(reservation)
   }
 
   editEntry(reservation: Reservation) {
