@@ -50,7 +50,7 @@ import {MapSVGComponent} from "../map-svg/map-svg.component";
   styleUrl: './floor.component.css'
 })
 
-export class FloorComponent implements AfterViewInit {
+export class FloorComponent {
 
   path = "";
   safePath: SafeResourceUrl = "";
@@ -79,30 +79,6 @@ export class FloorComponent implements AfterViewInit {
 
   getPath() {
     return this.sanitizer.bypassSecurityTrustResourceUrl(this.path);
-  }
-
-  private getClickedElement(event: MouseEvent) {
-    //this.onDeskClick(event.target);
-    //Array.from(this.floor.children).find(el => el.contains(event.target))
-    // )
-    //    console.log(event.target)
-    //return (Array.from(this.svgObject.children).find(el => el.contains(event.target)))
-  }
-
-  ngAfterViewInit(): void {
-/*
-    this.svgObject.nativeElement.addEventListener('load', () => {
-      const svgDoc = this.svgObject.nativeElement.contentDocument;
-      const paths = svgDoc.querySelectorAll('path');
-
-      paths.forEach(path => {
-        path.addEventListener('click', (event) => {
-          this.onDeskClick(event.target);
-        });
-      });
-    });
-
- */
   }
 
   //opens the dialog and passes the necessary data to it
@@ -153,6 +129,10 @@ export class FloorComponent implements AfterViewInit {
       .subscribe(response => {
         this.dataSource = new MatTableDataSource(response);
         this.dataSource.paginator = this.paginator;
+        this.dataSource.filterPredicate = (data, filter) => {
+          const dataStr = data.date + data.desk.deskID + data.user.name + data.user.surname;
+          return dataStr.trim().toLowerCase().indexOf(filter) != -1;
+        }
       });
   }
 
@@ -163,6 +143,8 @@ export class FloorComponent implements AfterViewInit {
     }*/
 
     const filterValue = (event.target as HTMLInputElement).value;
+    console.log(filterValue)
+    console.log(this.dataSource)
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
   }
