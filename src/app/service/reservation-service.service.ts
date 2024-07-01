@@ -81,7 +81,7 @@ export class ReservationService {
     headers.set("Accept", "application/json");
 
     //this.http.post("https://desksharing.onrender.com/reservation", request, {headers}).subscribe(
-    //return this.http.get<Reservation[]>("http://localhost:8090/reservations-by-floor?floor=" + floor, {headers})
+    //return this.http.get<Reservation[]>("http://localhost:8080/reservations-by-floor?floor=" + floor, {headers})
     return this.http.get<Reservation[]>("https://desksharing.onrender.com/reservations-by-floor?floor=" + floor, {headers})
   }
 

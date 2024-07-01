@@ -9,3 +9,8 @@
 .sub {
   margin: 10px;
 }
+
+.delete{
+  margin: 10px;
+  background-color: darkred;
+}

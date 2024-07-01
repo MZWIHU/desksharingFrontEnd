@@ -30,7 +30,8 @@ export class DeleteDialogComponent {
 
 
   delete() {
-    //this.reservationService.deleteReservation(this.pass)
+    this.reservationService.deleteReservation(this.pass)
+    this.closeDialog()
   }
 
   closeDialog() {
