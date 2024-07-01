@@ -108,7 +108,7 @@ export class FloorComponent {
   //used to change the svg, reload variable used to prevent infinite loop
   changeFloor() {
     this.safePath = this.getPath();
-    console.log(this.safePath);
+    //console.log(this.safePath);
   }
 
   onDeskClick(target: any) {
@@ -143,8 +143,8 @@ export class FloorComponent {
     }*/
 
     const filterValue = (event.target as HTMLInputElement).value;
-    console.log(filterValue)
-    console.log(this.dataSource)
+    //console.log(filterValue)
+    //console.log(this.dataSource)
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
   }
