@@ -1,8 +1,19 @@
 [[redirects]]
   from = "/floor/1"
   to = "/"
+[[redirects]]
+  from = "/floor/2"
+  to = "/"
+  status = 200
+[[redirects]]
+  from = "/floor/3"
+  to = "/"
+  status = 200
+[[redirects]]
+  from = "/floor/4"
+  to = "/"
   status = 200
 [[redirects]]
   from = "/overview"
-  to = "/overview"
+  to = "/"
   status = 200
