@@ -18,6 +18,7 @@ import {Reservation} from "../domain/Reservation";
 import {MatDialog} from "@angular/material/dialog";
 import {EditDialogComponent} from "../edit-dialog/edit-dialog.component";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {DeleteDialogComponent} from "../delete-dialog/delete-dialog.component";
 
 @Component({
   selector: 'app-reservation-overview',
@@ -66,16 +67,22 @@ export class ReservationOverviewComponent implements OnInit {
 
   delete(reservation: Reservation) {
     console.log(reservation)
-    this.reservationService.deleteReservation(reservation)
+   // this.reservationService.deleteReservation(reservation)
   }
 
   editEntry(reservation: Reservation) {
     console.log(reservation)
-    this.openDialog(reservation)
+    this.openEditDialog(reservation)
   }
 
-  openDialog(reservation: Reservation): void {
+  openEditDialog(reservation: Reservation): void {
     const dialogRef = this.dialog.open(EditDialogComponent, {
+      data: reservation
+    });
+  }
+
+  openDeleteDialog(reservation: Reservation): void {
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
       data: reservation
     });
   }
