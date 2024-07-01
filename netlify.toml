@@ -1,0 +1,11 @@
+[build]
+  publish = "dist/anglify"
+  command = "ng build --prod"
+[[redirects]]
+  from = "/floor/*"
+  to = "/floor/*"
+  status = 200
+[[redirects]]
+  from = "/overview"
+  to = "/overview"
+  status = 200
