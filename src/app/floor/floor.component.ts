@@ -74,7 +74,7 @@ export class FloorComponent {
     this.getCurrentFloor()
     this.changeFloor();
     this.getReservationsByFloor(+this.floor)
-    console.log(this.reservations)
+    //console.log(this.reservations)
   }
 
   getPath() {

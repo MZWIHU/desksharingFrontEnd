@@ -1,6 +1,6 @@
-[[redirects]]
-  from = "/floor/1"
-  to = "/floor/1"
+#[[redirects]]
+#  from = "/floor/1"
+#  to = "/"
 [[redirects]]
   from = "/floor/2"
   to = "/"

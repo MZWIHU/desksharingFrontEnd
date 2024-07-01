@@ -27,10 +27,10 @@ export class AppComponent {
   constructor(private router: Router) {
 
       router.events.subscribe(_ => {
-      console.log(router.url);
+      //console.log(router.url);
       this.open = router.url != "/";
       //console.log(router.url != "/")
-      console.log(this.open)
+      //console.log(this.open)
     })
 
     for (let i = 1; i <= this.numberOfFloors; i++) {
