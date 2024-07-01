@@ -1,6 +1,6 @@
 [[redirects]]
   from = "/floor/1"
-  to = "/floor/1"
+  to = "/"
   status = 200
 [[redirects]]
   from = "/overview"
